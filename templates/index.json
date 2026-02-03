@@ -19,7 +19,8 @@
         "primary_button_text": "Shop the Vibe",
         "primary_button_link": "/collections/all",
         "secondary_button_text": "What's in the Moss?",
-        "secondary_button_link": "/pages/benefits"
+        "secondary_button_link": "/pages/benefits",
+        "hero_background": "shopify://shop_images/ChatGPT_Image_Feb_3_2026_04_51_25_PM.png"
       }
     },
     "benefits": {

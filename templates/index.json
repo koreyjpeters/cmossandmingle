@@ -2,20 +2,37 @@
   "sections": {
     "hero": {
       "type": "hero-premium",
-      "settings": {}
+      "settings": {
+        "heading_part1": "Scoop the Moss.",
+        "heading_part2": "Catch the Vibe.",
+        "subheading": "Ethically harvested in St. Lucia. Sun-cured. Finely milled.\nPure sea moss with island energy.",
+        "show_badges": true,
+        "primary_button_text": "Shop the Vibe",
+        "primary_button_link": "/collections/all",
+        "secondary_button_text": "What's in the Moss?",
+        "secondary_button_link": "/pages/benefits"
+      }
+    },
+    "benefits": {
+      "type": "benefits",
+      "settings": {
+        "heading": "Discover the Benefits",
+        "benefit1_title": "Daily Mineral Boost",
+        "benefit1_text": "92+ essential minerals",
+        "benefit2_title": "Easy to Mix",
+        "benefit2_text": "Blends smoothly",
+        "benefit3_title": "Clean & Pure",
+        "benefit3_text": "No additives"
+      }
     },
     "featured_product": {
       "type": "main-product-premium",
-      "settings": {}
-    },
-    "story": {
-      "type": "story",
       "settings": {}
     }
   },
   "order": [
     "hero",
-    "featured_product",
-    "story"
+    "benefits",
+    "featured_product"
   ]
 }

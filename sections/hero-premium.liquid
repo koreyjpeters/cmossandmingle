@@ -1,20 +1,35 @@
-<section class="hero section bubbles" style="background-image:url({{ section.settings.hero_image | image_url: width: 2400 }});">
-  <div class="wrap hero-inner">
-    {% if section.settings.badge != blank %}
-      <span class="badge">{{ section.settings.badge }}</span>
-    {% endif %}
-    {% if section.settings.heading != blank %}
-      <h1>{{ section.settings.heading }}</h1>
-    {% endif %}
-    {% if section.settings.subheading != blank %}
-      <p>{{ section.settings.subheading }}</p>
-    {% endif %}
-    <div class="actions">
-      {% if section.settings.button_label != blank %}
-        <a class="btn primary" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+<section class="hero" style="background-image: url({{ section.settings.hero_background | image_url: width: 2400 }});">
+  <div class="bubbles">
+    {% render 'bubbles' %}
+  </div>
+  
+  <div class="hero-inner">
+    <h1>
+      {{ section.settings.heading_part1 }} 
+      <span class="highlight">{{ section.settings.heading_part2 }}</span>
+    </h1>
+    
+    <p class="subheading">{{ section.settings.subheading }}</p>
+    
+    <div class="hero-badges">
+      {% if section.settings.show_badges %}
+        <span class="badge-pill sun-cured">☀️ Sun-Cured</span>
+        <span class="badge-pill st-lucia">🇱🇨 St. Lucia Sourced</span>
+        <span class="badge-pill wildcrafted">🌿 Wildcrafted</span>
       {% endif %}
-      {% if section.settings.secondary_label != blank %}
-        <a class="btn" href="{{ section.settings.secondary_link }}" style="background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.22);">{{ section.settings.secondary_label }}</a>
+    </div>
+    
+    <div class="hero-actions">
+      {% if section.settings.primary_button_text != blank %}
+        <a href="{{ section.settings.primary_button_link }}" class="btn btn-primary">
+          {{ section.settings.primary_button_text }}
+        </a>
+      {% endif %}
+      
+      {% if section.settings.secondary_button_text != blank %}
+        <a href="{{ section.settings.secondary_button_link }}" class="btn btn-secondary">
+          {{ section.settings.secondary_button_text }} ▶
+        </a>
       {% endif %}
     </div>
   </div>
@@ -22,19 +37,83 @@
 
 {% schema %}
 {
-  "name": "Hero Premium",
+  "name": "Hero - Tropical Vibe",
   "settings": [
-    { "type": "image_picker", "id": "hero_image", "label": "Hero background image" },
-    { "type": "text", "id": "badge", "label": "Badge", "default": "🌴 St. Lucia Sourced · Wildcrafted · Sun‑Cured" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Pure Sea Moss. Elevated." },
-    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Wildcrafted in St. Lucia. Thoughtfully prepared for modern daily rituals." },
-    { "type": "text", "id": "button_label", "label": "Primary button label", "default": "Shop Sea Moss" },
-    { "type": "url", "id": "button_link", "label": "Primary button link" },
-    { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "Learn More" },
-    { "type": "url", "id": "secondary_link", "label": "Secondary button link" }
+    {
+      "type": "header",
+      "content": "Hero Content"
+    },
+    {
+      "type": "text",
+      "id": "heading_part1",
+      "label": "Heading (Part 1)",
+      "default": "Scoop the Moss."
+    },
+    {
+      "type": "text",
+      "id": "heading_part2",
+      "label": "Heading (Part 2 - Highlighted)",
+      "default": "Catch the Vibe."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Ethically harvested in St. Lucia. Sun-cured. Finely milled.\nPure sea moss with island energy."
+    },
+    {
+      "type": "header",
+      "content": "Badges"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badges",
+      "label": "Show trust badges",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_text",
+      "label": "Primary button text",
+      "default": "Shop the Vibe"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Primary button link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Secondary button text",
+      "default": "What's in the Moss?"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary button link",
+      "default": "/pages/benefits"
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_background",
+      "label": "Background image (optional)",
+      "info": "If no image is selected, gradient background will show"
+    }
   ],
   "presets": [
-    { "name": "Hero Premium" }
+    {
+      "name": "Hero - Tropical Vibe"
+    }
   ]
 }
 {% endschema %}

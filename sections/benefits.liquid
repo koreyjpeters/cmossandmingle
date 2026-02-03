@@ -1,17 +1,98 @@
-
-{% render 'wave-divider', position: 'top' %}
-<section class="benefits sand">
+<section class="benefits">
   <div class="wrap">
-    <h2>Why the Moss Hits Different</h2>
-    <ul>
-      <li>Wildcrafted Chondrus crispus (Irish Sea Moss)</li>
-      <li>Sun-dried, non-bleached, no added salt</li>
-      <li>Triple-rinsed for a clean, golden finish</li>
-      <li>Finely milled for effortless mixing</li>
-    </ul>
+    <h2>{{ section.settings.heading }}</h2>
+    
+    <div class="benefits-grid">
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          🛡️
+        </div>
+        <h3>{{ section.settings.benefit1_title }}</h3>
+        <p>{{ section.settings.benefit1_text }}</p>
+      </div>
+      
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          🥤
+        </div>
+        <h3>{{ section.settings.benefit2_title }}</h3>
+        <p>{{ section.settings.benefit2_text }}</p>
+      </div>
+      
+      <div class="benefit-item">
+        <div class="benefit-icon">
+          🌿
+        </div>
+        <h3>{{ section.settings.benefit3_title }}</h3>
+        <p>{{ section.settings.benefit3_text }}</p>
+      </div>
+    </div>
   </div>
 </section>
 
 {% schema %}
-{ "name":"Benefits","settings":[] }
+{
+  "name": "Benefits Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section heading",
+      "default": "Discover the Benefits"
+    },
+    {
+      "type": "header",
+      "content": "Benefit 1"
+    },
+    {
+      "type": "text",
+      "id": "benefit1_title",
+      "label": "Title",
+      "default": "Daily Mineral Boost"
+    },
+    {
+      "type": "textarea",
+      "id": "benefit1_text",
+      "label": "Description",
+      "default": "92+ essential minerals"
+    },
+    {
+      "type": "header",
+      "content": "Benefit 2"
+    },
+    {
+      "type": "text",
+      "id": "benefit2_title",
+      "label": "Title",
+      "default": "Easy to Mix"
+    },
+    {
+      "type": "textarea",
+      "id": "benefit2_text",
+      "label": "Description",
+      "default": "Blends smoothly"
+    },
+    {
+      "type": "header",
+      "content": "Benefit 3"
+    },
+    {
+      "type": "text",
+      "id": "benefit3_title",
+      "label": "Title",
+      "default": "Clean & Pure"
+    },
+    {
+      "type": "textarea",
+      "id": "benefit3_text",
+      "label": "Description",
+      "default": "No additives"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Benefits Section"
+    }
+  ]
+}
 {% endschema %}

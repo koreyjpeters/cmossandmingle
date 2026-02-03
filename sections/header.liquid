@@ -1,15 +1,17 @@
 <header class="header">
-  <div class="wrap header-inner">
-    <div class="brand">C’Moss & Mingle</div>
+  <div class="header-inner">
+    <div class="brand">C'Moss & Mingle</div>
     <nav class="nav">
       <a href="/">Home</a>
-      {%- assign nav_p = collections.all.products.first -%}
-      {%- if nav_p -%}
-        <a href="{{ nav_p.url }}">Shop</a>
-      {%- else -%}
-        <a href="/collections/all">Shop</a>
-      {%- endif -%}
-      <a href="/cart">Cart</a>
+      <a href="/pages/shop">Shop</a>
+      <a href="/pages/about">About</a>
+      <a href="/pages/faq">FAQ</a>
+      <a href="/pages/contact">Contact</a>
+      <div class="nav-icons">
+        <a href="/search" aria-label="Search">🔍</a>
+        <a href="/account" aria-label="Account">👤</a>
+        <a href="/cart" aria-label="Cart">🛒</a>
+      </div>
     </nav>
   </div>
 </header>

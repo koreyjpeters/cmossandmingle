@@ -10,7 +10,7 @@
 <section class="hero section bubbles" style="background-image:url({{ 'hero-serene.png' | asset_url }});">
   {%- if bg != blank -%}
     <style>
-      .hero{{ background-image:url({{ bg | image_url: width: 2400 }}); }}
+      .hero { background-image:url({{ bg | image_url: width: 2400 }}); }
     </style>
   {%- endif -%}
   <div class="wrap hero-inner">

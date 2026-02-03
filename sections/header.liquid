@@ -1,12 +1,24 @@
 <header class="header">
   <div class="header-inner">
-    <div class="brand">C'Moss & Mingle</div>
+    <a href="/" class="brand">C'Moss & Mingle</a>
     <nav class="nav">
       <a href="/">Home</a>
-      <a href="/pages/shop">Shop</a>
-      <a href="/pages/about">About</a>
-      <a href="/pages/faq">FAQ</a>
-      <a href="/pages/contact">Contact</a>
+      <a href="/collections/all">Shop</a>
+      {% if section.settings.about_link != blank %}
+        <a href="{{ section.settings.about_link }}">About</a>
+      {% else %}
+        <a href="/pages/about">About</a>
+      {% endif %}
+      {% if section.settings.faq_link != blank %}
+        <a href="{{ section.settings.faq_link }}">FAQ</a>
+      {% else %}
+        <a href="/pages/faq">FAQ</a>
+      {% endif %}
+      {% if section.settings.contact_link != blank %}
+        <a href="{{ section.settings.contact_link }}">Contact</a>
+      {% else %}
+        <a href="/pages/contact">Contact</a>
+      {% endif %}
       <div class="nav-icons">
         <a href="/search" aria-label="Search">🔍</a>
         <a href="/account" aria-label="Account">👤</a>
@@ -15,3 +27,33 @@
     </nav>
   </div>
 </header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Navigation Links"
+    },
+    {
+      "type": "url",
+      "id": "about_link",
+      "label": "About page link",
+      "info": "Leave blank to use /pages/about"
+    },
+    {
+      "type": "url",
+      "id": "faq_link",
+      "label": "FAQ page link",
+      "info": "Leave blank to use /pages/faq"
+    },
+    {
+      "type": "url",
+      "id": "contact_link",
+      "label": "Contact page link",
+      "info": "Leave blank to use /pages/contact"
+    }
+  ]
+}
+{% endschema %}

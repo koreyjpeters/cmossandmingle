@@ -1,4 +1,8 @@
-<section class="hero" style="background-image: url({{ section.settings.hero_background | image_url: width: 2400 }});">
+<section class="hero" {% if section.settings.hero_background != blank %}style="background-image: url({{ section.settings.hero_background | image_url: width: 2400 }}); background-size: cover; background-position: center;"{% endif %}>
+  {% if section.settings.hero_background != blank %}
+    <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(107, 45, 143, 0.7) 0%, rgba(184, 51, 106, 0.6) 50%, rgba(255, 107, 53, 0.5) 100%); z-index: 1;"></div>
+  {% endif %}
+  
   <div class="bubbles">
     {% render 'bubbles' %}
   </div>

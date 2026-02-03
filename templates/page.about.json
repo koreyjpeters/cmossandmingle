@@ -1,0 +1,24 @@
+{
+    "sections": {
+        "main": {
+            "type": "main-page",
+            "settings": {}
+        },
+        "about-hero": {
+            "type": "page-hero",
+            "settings": {
+                "heading": "Our Story",
+                "subheading": "From the pristine waters of St. Lucia to your daily wellness ritual"
+            }
+        },
+        "about-content": {
+            "type": "rich-text",
+            "settings": {}
+        }
+    },
+    "order": [
+        "about-hero",
+        "about-content",
+        "main"
+    ]
+}

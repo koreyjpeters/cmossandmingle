@@ -1,0 +1,148 @@
+<section class="faq-section section" style="padding: 80px 20px; background: linear-gradient(to bottom, var(--sand) 0%, #FFF 100%);">
+  <div class="wrap" style="max-width: 900px;">
+    <style>
+      .faq-item {
+        background: white;
+        border-radius: 16px;
+        margin-bottom: 16px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        overflow: hidden;
+      }
+      
+      .faq-question {
+        padding: 24px;
+        font-weight: 700;
+        font-size: 1.15rem;
+        color: var(--dark);
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background 0.3s ease;
+      }
+      
+      .faq-question:hover {
+        background: #f9f9f9;
+      }
+      
+      .faq-question::after {
+        content: '+';
+        font-size: 1.5rem;
+        color: var(--purple);
+        font-weight: 700;
+        transition: transform 0.3s ease;
+      }
+      
+      .faq-question.active::after {
+        content: '−';
+      }
+      
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+      
+      .faq-answer-content {
+        padding: 0 24px 24px;
+        color: var(--text-muted);
+        line-height: 1.7;
+      }
+    </style>
+    
+    {% if section.blocks.size > 0 %}
+      <div class="faq-list">
+        {% for block in section.blocks %}
+          <div class="faq-item" {{ block.shopify_attributes }}>
+            <div class="faq-question" onclick="toggleFaq(this)">
+              {{ block.settings.question }}
+            </div>
+            <div class="faq-answer">
+              <div class="faq-answer-content">
+                {{ block.settings.answer }}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div style="text-align: center; padding: 40px; background: white; border-radius: 16px;">
+        <p style="color: var(--text-muted);">Add FAQ blocks in the theme editor to display questions and answers.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  function toggleFaq(element) {
+    const answer = element.nextElementSibling;
+    const isActive = element.classList.contains('active');
+    
+    // Close all FAQs
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.classList.remove('active');
+      q.nextElementSibling.style.maxHeight = null;
+    });
+    
+    // Open clicked FAQ if it wasn't active
+    if (!isActive) {
+      element.classList.add('active');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What is sea moss?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Sea moss is a type of red algae that grows in the ocean. It's packed with 92 essential minerals and has been used for centuries for its health benefits.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Section",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is sea moss?",
+            "answer": "<p>Sea moss is a nutrient-rich red algae harvested from the pristine waters of St. Lucia. It contains 92 of the 102 minerals your body needs.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I use sea moss powder?",
+            "answer": "<p>Simply add 1-2 tablespoons to your smoothies, teas, soups, or any recipe. It blends easily and has a mild taste.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is your sea moss organic?",
+            "answer": "<p>Yes! Our sea moss is wildcrafted from the ocean, sun-cured naturally, and contains no additives or preservatives.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,19 @@
+{
+    "sections": {
+        "contact-hero": {
+            "type": "page-hero",
+            "settings": {
+                "heading": "Get in Touch",
+                "subheading": "We'd love to hear from you"
+            }
+        },
+        "contact-form": {
+            "type": "contact-form",
+            "settings": {}
+        }
+    },
+    "order": [
+        "contact-hero",
+        "contact-form"
+    ]
+}

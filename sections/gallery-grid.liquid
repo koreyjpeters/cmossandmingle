@@ -1,0 +1,39 @@
+
+<section class="gallery-grid section">
+  <div class="wrap" style="padding-bottom:18px;">
+    <h2 style="margin:0 0 10px;">Pure. Wildcrafted. Intentional.</h2>
+    <p style="margin:0;opacity:.85;max-width:68ch;margin-left:auto;margin-right:auto;">
+      Ethically sourced from coastal divers in St. Lucia and naturally sun‑cured to preserve its mineral profile.
+    </p>
+  </div>
+
+  <div class="grid">
+    {%- for block in section.blocks -%}
+      <div class="card">
+        {%- if block.settings.image != blank -%}
+          <img src="{{ block.settings.image | image_url: width: 1600 }}" alt="{{ block.settings.alt | escape }}">
+        {%- else -%}
+          <img src="{{ 'brand-packaging.png' | asset_url }}" alt="C’Moss & Mingle packaging">
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gallery grid",
+  "max_blocks": 9,
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "alt", "label": "Alt text", "default": "C’Moss & Mingle" }
+      ]
+    }
+  ],
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,603 @@
+{%- comment -%}
+  Premium Product Section with Image Gallery, Video Support, and Enhanced UI
+{%- endcomment -%}
+
+{% assign picked = section.settings.product %}
+{% assign by_handle = blank %}
+{% if section.settings.product_handle != blank %}
+  {% assign by_handle = all_products[section.settings.product_handle] %}
+{% endif %}
+{% assign fallback = collections.all.products.first %}
+
+{% assign product_obj = picked %}
+{% if product_obj == blank %}
+  {% assign product_obj = by_handle %}
+{% endif %}
+{% if product_obj == blank %}
+  {% assign product_obj = fallback %}
+{% endif %}
+
+<style>
+  .premium-product {
+    --primary-green: #2d5f4f;
+    --accent-gold: #d4af37;
+    --text-dark: #1a1a1a;
+    --text-muted: #666;
+    --border-light: #e6e6ea;
+  }
+
+  .premium-product__grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  /* Image Gallery */
+  .premium-product__gallery {
+    position: sticky;
+    top: 20px;
+  }
+
+  .premium-product__main-image {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+    margin-bottom: 16px;
+    background: #f9f9f9;
+  }
+
+  .premium-product__main-image img {
+    width: 100%;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .premium-product__main-image:hover img {
+    transform: scale(1.05);
+  }
+
+  .premium-product__thumbnails {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 12px;
+  }
+
+  .premium-product__thumbnail {
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    aspect-ratio: 1;
+  }
+
+  .premium-product__thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .premium-product__thumbnail:hover {
+    border-color: var(--primary-green);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(45, 95, 79, 0.2);
+  }
+
+  .premium-product__thumbnail.active {
+    border-color: var(--primary-green);
+    box-shadow: 0 4px 12px rgba(45, 95, 79, 0.3);
+  }
+
+  /* Video */
+  .premium-product__video {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+    margin-bottom: 16px;
+  }
+
+  .premium-product__video iframe,
+  .premium-product__video video {
+    width: 100%;
+    display: block;
+    aspect-ratio: 16/9;
+  }
+
+  /* Product Info */
+  .premium-product__info {
+    padding-top: 8px;
+  }
+
+  .premium-product__badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #2d5f4f 0%, #3a7a63 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    letter-spacing: 0.3px;
+  }
+
+  .premium-product__title {
+    font-size: 2.5rem;
+    margin: 0 0 12px;
+    color: var(--text-dark);
+    line-height: 1.2;
+  }
+
+  .premium-product__price {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--primary-green);
+    margin-bottom: 24px;
+  }
+
+  .premium-product__description {
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 28px;
+    font-size: 1.05rem;
+  }
+
+  /* Trust Badges */
+  .premium-product__badges {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+    padding: 20px;
+    background: linear-gradient(135deg, #f8faf9 0%, #f0f4f2 100%);
+    border-radius: 16px;
+  }
+
+  .premium-product__badge-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    font-weight: 500;
+  }
+
+  .premium-product__badge-icon {
+    font-size: 1.3rem;
+  }
+
+  /* Variant Selector */
+  .premium-product__variant-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-dark);
+  }
+
+  .premium-product__variant-select {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 2px solid var(--border-light);
+    font-size: 1rem;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    background: white;
+  }
+
+  .premium-product__variant-select:focus {
+    outline: none;
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 3px rgba(45, 95, 79, 0.1);
+  }
+
+  /* Quantity Selector */
+  .premium-product__quantity {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .premium-product__quantity-label {
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+
+  .premium-product__quantity-controls {
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .premium-product__quantity-btn {
+    background: white;
+    border: none;
+    padding: 12px 18px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-green);
+    transition: all 0.2s ease;
+  }
+
+  .premium-product__quantity-btn:hover {
+    background: #f0f4f2;
+  }
+
+  .premium-product__quantity-input {
+    border: none;
+    width: 60px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 12px 8px;
+    border-left: 1px solid var(--border-light);
+    border-right: 1px solid var(--border-light);
+  }
+
+  /* Add to Cart Button */
+  .premium-product__add-to-cart {
+    width: 100%;
+    padding: 18px 32px;
+    background: linear-gradient(135deg, #2d5f4f 0%, #3a7a63 100%);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 24px rgba(45, 95, 79, 0.3);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .premium-product__add-to-cart:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(45, 95, 79, 0.4);
+  }
+
+  .premium-product__add-to-cart:active {
+    transform: translateY(0);
+  }
+
+  /* Benefits */
+  .premium-product__benefits {
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .premium-product__benefits-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--text-dark);
+  }
+
+  .premium-product__benefits-list {
+    display: grid;
+    gap: 12px;
+  }
+
+  .premium-product__benefit {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-muted);
+  }
+
+  .premium-product__benefit-icon {
+    color: var(--primary-green);
+    font-size: 1.2rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .premium-product__grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .premium-product__gallery {
+      position: static;
+    }
+
+    .premium-product__title {
+      font-size: 2rem;
+    }
+
+    .premium-product__thumbnails {
+      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    }
+
+    .premium-product__badges {
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+</style>
+
+<section class="section premium-product">
+  <div class="wrap" style="max-width: 1200px;">
+    {% if product_obj != blank %}
+      <div class="premium-product__grid">
+        <!-- Image Gallery -->
+        <div class="premium-product__gallery">
+          <!-- Video (if provided) -->
+          {% if section.settings.product_video != blank %}
+            <div class="premium-product__video">
+              {% if section.settings.product_video contains 'youtube.com' or section.settings.product_video contains 'youtu.be' %}
+                {% assign video_id = section.settings.product_video | split: 'v=' | last | split: '/' | last | split: '&' | first %}
+                <iframe 
+                  src="https://www.youtube.com/embed/{{ video_id }}" 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowfullscreen>
+                </iframe>
+              {% elsif section.settings.product_video contains 'vimeo.com' %}
+                {% assign video_id = section.settings.product_video | split: 'vimeo.com/' | last %}
+                <iframe 
+                  src="https://player.vimeo.com/video/{{ video_id }}" 
+                  frameborder="0" 
+                  allow="autoplay; fullscreen; picture-in-picture" 
+                  allowfullscreen>
+                </iframe>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          <!-- Main Image -->
+          <div class="premium-product__main-image" id="mainImage">
+            {% if product_obj.featured_image %}
+              <img
+                src="{{ product_obj.featured_image | image_url: width: 1400 }}"
+                alt="{{ product_obj.title | escape }}"
+                loading="lazy"
+                id="mainImageElement"
+              >
+            {% endif %}
+          </div>
+
+          <!-- Thumbnails -->
+          <div class="premium-product__thumbnails">
+            {% for image in product_obj.images limit: 6 %}
+              <div class="premium-product__thumbnail {% if forloop.first %}active{% endif %}" 
+                   onclick="changeImage('{{ image | image_url: width: 1400 }}', this)">
+                <img src="{{ image | image_url: width: 200 }}" alt="{{ product_obj.title | escape }}">
+              </div>
+            {% endfor %}
+
+            <!-- Custom Lifestyle Images -->
+            {% if section.settings.lifestyle_image_1 != blank %}
+              <div class="premium-product__thumbnail" 
+                   onclick="changeImage('{{ section.settings.lifestyle_image_1 | image_url: width: 1400 }}', this)">
+                <img src="{{ section.settings.lifestyle_image_1 | image_url: width: 200 }}" alt="Lifestyle">
+              </div>
+            {% endif %}
+
+            {% if section.settings.lifestyle_image_2 != blank %}
+              <div class="premium-product__thumbnail" 
+                   onclick="changeImage('{{ section.settings.lifestyle_image_2 | image_url: width: 1400 }}', this)">
+                <img src="{{ section.settings.lifestyle_image_2 | image_url: width: 200 }}" alt="Lifestyle">
+              </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="premium-product__info">
+          {% if section.settings.show_badge %}
+            <span class="premium-product__badge">{{ section.settings.badge_text }}</span>
+          {% endif %}
+
+          <h2 class="premium-product__title">{{ product_obj.title }}</h2>
+          
+          <div class="premium-product__price">{{ product_obj.price | money }}</div>
+
+          <div class="premium-product__description">
+            {{ section.settings.short_copy }}
+          </div>
+
+          <!-- Trust Badges -->
+          {% if section.settings.show_trust_badges %}
+            <div class="premium-product__badges">
+              <div class="premium-product__badge-item">
+                <span class="premium-product__badge-icon">🌴</span>
+                <span>Wildcrafted</span>
+              </div>
+              <div class="premium-product__badge-item">
+                <span class="premium-product__badge-icon">☀️</span>
+                <span>Sun-Cured</span>
+              </div>
+              <div class="premium-product__badge-item">
+                <span class="premium-product__badge-icon">🇱🇨</span>
+                <span>St. Lucia Sourced</span>
+              </div>
+            </div>
+          {% endif %}
+
+          {% form 'product', product_obj %}
+            <!-- Variant Selector -->
+            {% if product_obj.variants.size > 1 %}
+              <label class="premium-product__variant-label">Select Size</label>
+              <select name="id" class="premium-product__variant-select">
+                {% for variant in product_obj.variants %}
+                  <option value="{{ variant.id }}" {% if variant == product_obj.selected_or_first_available_variant %}selected{% endif %}>
+                    {{ variant.title }} — {{ variant.price | money }}
+                  </option>
+                {% endfor %}
+              </select>
+            {% else %}
+              <input type="hidden" name="id" value="{{ product_obj.variants.first.id }}">
+            {% endif %}
+
+            <!-- Quantity Selector -->
+            <div class="premium-product__quantity">
+              <span class="premium-product__quantity-label">Quantity</span>
+              <div class="premium-product__quantity-controls">
+                <button type="button" class="premium-product__quantity-btn" onclick="decrementQuantity()">−</button>
+                <input type="number" name="quantity" value="1" min="1" class="premium-product__quantity-input" id="quantityInput">
+                <button type="button" class="premium-product__quantity-btn" onclick="incrementQuantity()">+</button>
+              </div>
+            </div>
+
+            <button type="submit" class="premium-product__add-to-cart">Add to Cart</button>
+          {% endform %}
+
+          <!-- Benefits -->
+          {% if section.settings.show_benefits %}
+            <div class="premium-product__benefits">
+              <h3 class="premium-product__benefits-title">Key Benefits</h3>
+              <div class="premium-product__benefits-list">
+                <div class="premium-product__benefit">
+                  <span class="premium-product__benefit-icon">✓</span>
+                  <span>Rich in 92 essential minerals</span>
+                </div>
+                <div class="premium-product__benefit">
+                  <span class="premium-product__benefit-icon">✓</span>
+                  <span>Supports immune system health</span>
+                </div>
+                <div class="premium-product__benefit">
+                  <span class="premium-product__benefit-icon">✓</span>
+                  <span>Promotes digestive wellness</span>
+                </div>
+                <div class="premium-product__benefit">
+                  <span class="premium-product__benefit-icon">✓</span>
+                  <span>Natural energy boost</span>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% else %}
+      <div style="padding:24px;border:2px solid #eee;border-radius:16px;text-align:center;">
+        <strong>No product found.</strong>
+        <div style="margin-top:12px;opacity:.8;">
+          Add at least one product (Active + available on Online Store), or select a product in section settings.
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  function changeImage(imageUrl, thumbnail) {
+    const mainImage = document.getElementById('mainImageElement');
+    mainImage.src = imageUrl;
+    
+    // Update active thumbnail
+    document.querySelectorAll('.premium-product__thumbnail').forEach(thumb => {
+      thumb.classList.remove('active');
+    });
+    thumbnail.classList.add('active');
+  }
+
+  function incrementQuantity() {
+    const input = document.getElementById('quantityInput');
+    input.value = parseInt(input.value) + 1;
+  }
+
+  function decrementQuantity() {
+    const input = document.getElementById('quantityInput');
+    if (parseInt(input.value) > 1) {
+      input.value = parseInt(input.value) - 1;
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Premium Product",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product Selection"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product (optional)"
+    },
+    {
+      "type": "text",
+      "id": "product_handle",
+      "label": "Fallback product handle",
+      "default": "cmoss-and-mingle-pure-sea-moss-powder"
+    },
+    {
+      "type": "header",
+      "content": "Product Information"
+    },
+    {
+      "type": "textarea",
+      "id": "short_copy",
+      "label": "Product description",
+      "default": "Pure, wildcrafted Chondrus crispus sea moss powder — sun‑cured, non‑bleached, and cleanly prepared. Sourced from the pristine waters of St. Lucia."
+    },
+    {
+      "type": "header",
+      "content": "Badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "🌴 Premium Quality"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "text",
+      "id": "product_video",
+      "label": "Product video URL (YouTube or Vimeo)",
+      "info": "Paste full YouTube or Vimeo URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "lifestyle_image_1",
+      "label": "Lifestyle image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "lifestyle_image_2",
+      "label": "Lifestyle image 2"
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_badges",
+      "label": "Show trust badges",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_benefits",
+      "label": "Show benefits list",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Premium Product"
+    }
+  ]
+}
+{% endschema %}

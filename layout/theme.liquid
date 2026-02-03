@@ -1,0 +1,18 @@
+
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  {{ content_for_header }}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ page_title }}{% unless page_title contains shop.name %} – {{ shop.name }}{% endunless %}</title>
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+</head>
+<body>
+  {% section 'header' %}
+  <main role="main">
+    {{ content_for_layout }}
+  </main>
+  {% section 'footer' %}
+</body>
+</html>

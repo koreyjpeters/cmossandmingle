@@ -1,0 +1,42 @@
+<section class="section">
+  <div class="wrap" style="max-width:1100px;">
+    <h1 style="margin:0 0 14px;">Your Cart</h1>
+
+    {%- if cart.item_count == 0 -%}
+      <p style="opacity:.85;">Your cart is currently empty.</p>
+      <a class="btn primary" href="/" style="margin-top:10px;display:inline-block;">Back to Home</a>
+    {%- else -%}
+      <div style="display:grid;gap:14px;">
+        {%- for item in cart.items -%}
+          <div style="display:grid;grid-template-columns:90px 1fr auto;gap:14px;align-items:center;padding:14px;border-radius:16px;background:#fff;box-shadow:0 10px 22px rgba(0,0,0,.08);">
+            <div style="border-radius:12px;overflow:hidden;background:#f3f3f3;">
+              {%- if item.image -%}
+                <img src="{{ item.image | image_url: width: 300 }}" alt="{{ item.product.title | escape }}" style="width:90px;height:90px;object-fit:cover;display:block;">
+              {%- endif -%}
+            </div>
+            <div>
+              <div style="font-weight:600;">{{ item.product.title }}</div>
+              <div style="opacity:.8;font-size:.95rem;">{{ item.variant.title }}</div>
+              <div style="opacity:.9;margin-top:6px;">{{ item.final_line_price | money }}</div>
+            </div>
+            <div style="text-align:right;">
+              <a href="{{ item.url_to_remove }}" style="opacity:.75;">Remove</a>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div style="margin-top:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+        <div style="font-size:1.1rem;"><strong>Total:</strong> {{ cart.total_price | money }}</div>
+        <a class="btn primary" href="/checkout">Checkout</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main cart",
+  "settings": []
+}
+{% endschema %}

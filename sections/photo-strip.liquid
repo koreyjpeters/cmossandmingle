@@ -1,0 +1,38 @@
+
+<section class="photo-strip sand section curve-top curve-bottom" id="learn">
+  <div class="wrap" style="padding-bottom:18px;">
+    <h2 style="margin:0 0 10px;">The Ritual, Up Close</h2>
+    <p style="margin:0;opacity:.85;max-width:62ch;margin-left:auto;margin-right:auto;">
+      A clean, simple ritual — designed to mix easily into smoothies, teas, and everyday recipes.
+    </p>
+  </div>
+  <div class="strip">
+    {%- for block in section.blocks -%}
+      <div class="tile">
+        {%- if block.settings.image != blank -%}
+          <img src="{{ block.settings.image | image_url: width: 1400 }}" alt="{{ block.settings.alt | escape }}">
+        {%- else -%}
+          <img src="{{ 'product-packaging.png' | asset_url }}" alt="C’Moss & Mingle product">
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product photo strip",
+  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "alt", "label": "Alt text", "default": "C’Moss & Mingle" }
+      ]
+    }
+  ],
+  "settings": []
+}
+{% endschema %}

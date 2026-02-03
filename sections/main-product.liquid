@@ -1,0 +1,96 @@
+{%- comment -%}
+  Featured product (minimal) — robust for homepage + single-product stores.
+  Fixes: "product form must be given a product" by ensuring a product object exists
+  before rendering the form. Supports product picker OR handle fallback.
+{%- endcomment -%}
+
+{% assign picked = section.settings.product %}
+{% assign by_handle = blank %}
+{% if section.settings.product_handle != blank %}
+  {% assign by_handle = all_products[section.settings.product_handle] %}
+{% endif %}
+{% assign fallback = collections.all.products.first %}
+
+{% assign product_obj = picked %}
+{% if product_obj == blank %}
+  {% assign product_obj = by_handle %}
+{% endif %}
+{% if product_obj == blank %}
+  {% assign product_obj = fallback %}
+{% endif %}
+
+<section class="section">
+  <div class="wrap" style="max-width: 1100px;">
+    {% if product_obj != blank %}
+      <div style="display:grid;grid-template-columns: 1.05fr .95fr;gap:32px;align-items:start;">
+        <div>
+          {% if product_obj.featured_image %}
+            <img
+              src="{{ product_obj.featured_image | image_url: width: 1400 }}"
+              alt="{{ product_obj.title | escape }}"
+              loading="lazy"
+              style="width:100%;border-radius:18px;box-shadow:0 14px 30px rgba(0,0,0,.10);"
+            >
+          {% endif %}
+        </div>
+
+        <div>
+          <h2 style="margin-top:0;">{{ product_obj.title }}</h2>
+          <div style="font-size:1.25rem;margin:10px 0 18px;">{{ product_obj.price | money }}</div>
+
+          {% form 'product', product_obj %}
+            {% if product_obj.variants.size > 1 %}
+              <label style="display:block;margin-bottom:8px;">Size</label>
+              <select name="id" style="width:100%;padding:12px;border-radius:12px;border:1px solid #e6e6ea;margin-bottom:14px;">
+                {% for variant in product_obj.variants %}
+                  <option value="{{ variant.id }}" {% if variant == product_obj.selected_or_first_available_variant %}selected{% endif %}>
+                    {{ variant.title }} — {{ variant.price | money }}
+                  </option>
+                {% endfor %}
+              </select>
+            {% else %}
+              <input type="hidden" name="id" value="{{ product_obj.variants.first.id }}">
+            {% endif %}
+
+            <button type="submit" class="btn primary" style="width:100%;">Add to cart</button>
+          {% endform %}
+
+          <div style="margin-top:16px;opacity:.85;">
+            {{ section.settings.short_copy }}
+          </div>
+
+          {% if section.settings.secondary_link != blank %}
+            <div style="margin-top:14px;">
+              <a href="{{ section.settings.secondary_link }}" style="text-decoration:underline;">
+                {{ section.settings.secondary_label }}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% else %}
+      <div style="padding:18px;border:1px solid #eee;border-radius:14px;">
+        <strong>No product found.</strong>
+        <div style="margin-top:8px;opacity:.8;">
+          Add at least one product (Active + available on Online Store), or select a product in this section settings.
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured product (minimal)",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Product (optional)" },
+    { "type": "text", "id": "product_handle", "label": "Fallback product handle (optional)", "default": "cmoss-and-mingle-pure-sea-moss-powder" },
+    { "type": "text", "id": "short_copy", "label": "Short description", "default": "Pure, wildcrafted Chondrus crispus sea moss powder — sun‑cured, non‑bleached, and cleanly prepared." },
+    { "type": "text", "id": "secondary_label", "label": "Secondary link label", "default": "View full details" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary link" }
+  ],
+  "presets": [
+    { "name": "Featured product (minimal)" }
+  ]
+}
+{% endschema %}

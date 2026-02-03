@@ -1,0 +1,131 @@
+
+:root{
+  --gold:#F5C400;
+  --purple:#6B2C91;
+  --green:#1F7A1F;
+  --coral:#D96A5C;
+  --sand:#FFF6E5;
+}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#111}
+.wrap{max-width:1100px;margin:auto;padding:64px 20px;text-align:center}
+.header{background:#fff;border-bottom:1px solid #eee;position:sticky;top:0;z-index:20}
+.header-inner{display:flex;justify-content:space-between;align-items:center;padding:16px}
+.brand{font-weight:900}
+.nav a{margin-left:16px}
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(135deg,var(--purple),var(--coral),var(--gold));
+  color:#fff;
+}
+.badge{display:inline-block;margin-bottom:16px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.2)}
+
+.bubbles{
+  position:absolute;inset:0;pointer-events:none;z-index:0;
+}
+.bubbles span{
+  position:absolute;
+  bottom:-60px;
+  width:40px;height:40px;
+  background:rgba(255,255,255,.15);
+  border-radius:50%;
+  animation: float 18s infinite ease-in;
+}
+.bubbles span:nth-child(1){left:10%;animation-duration:22s}
+.bubbles span:nth-child(2){left:25%;width:20px;height:20px;animation-duration:14s}
+.bubbles span:nth-child(3){left:50%;width:60px;height:60px;animation-duration:26s}
+.bubbles span:nth-child(4){left:70%;width:25px;height:25px;animation-duration:16s}
+.bubbles span:nth-child(5){left:85%;width:45px;height:45px;animation-duration:20s}
+
+@keyframes float{
+  from{transform:translateY(0);opacity:.6}
+  to{transform:translateY(-120vh);opacity:0}
+}
+
+.wave-divider svg{
+  display:block;
+  width:100%;
+  height:80px;
+  fill:#fff;
+}
+.wave-divider.top svg{transform:rotate(180deg)}
+.wave-divider.bottom{margin-top:-1px}
+
+.btn{display:inline-block;padding:14px 28px;border-radius:999px;font-weight:800}
+.primary{background:var(--green);color:#fff}
+.sand{background:var(--sand)}
+.coral{background:var(--coral);color:#fff}
+.green{background:#e8f7f0}
+.gradient{background:linear-gradient(135deg,var(--gold),var(--coral));color:#111}
+
+.footer{background:#f6f7fb;padding:40px 20px}
+.small{opacity:.7;font-size:.85rem}
+ul{list-style:none;padding:0}
+li{margin:12px 0}
+
+
+/* --- Premium serene updates --- */
+.hero{
+  min-height: 92vh;
+  display:flex;
+  align-items:center;
+  background-size: cover;
+  background-position: center;
+  position:relative;
+}
+.hero::after{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(110deg, rgba(5, 25, 35, .52) 0%, rgba(5,25,35,.22) 52%, rgba(5,25,35,.12) 100%);
+  pointer-events:none;
+}
+.hero .wrap{position:relative; z-index:2; text-align:left}
+.hero h1{font-size: clamp(2.2rem, 4.2vw, 4rem); line-height:1.05; margin: 0 0 14px; letter-spacing:-0.02em;}
+.hero p{max-width: 56ch; font-size: 1.05rem; opacity:.94; margin:0 0 22px;}
+.hero .badge{background:rgba(255,255,255,.14); backdrop-filter: blur(6px);}
+.hero .actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.hero .btn.primary{box-shadow: 0 18px 42px rgba(0,0,0,.22)}
+@media (max-width: 768px){
+  .hero .wrap{padding-top: 72px; padding-bottom: 56px; text-align:left}
+}
+
+/* Product photo strip */
+.photo-strip{padding: 28px 0 12px;}
+.photo-strip .strip{
+  display:flex; gap:14px; overflow:auto; scroll-snap-type:x mandatory;
+  padding: 8px 20px 20px; -webkit-overflow-scrolling: touch;
+}
+.photo-strip .strip::-webkit-scrollbar{height:8px}
+.photo-strip .tile{
+  flex: 0 0 auto;
+  width: min(360px, 82vw);
+  border-radius: 18px;
+  overflow:hidden;
+  position:relative;
+  scroll-snap-align:start;
+  box-shadow: 0 14px 30px rgba(0,0,0,.10);
+  background:#fff;
+}
+.photo-strip img{width:100%; height:100%; display:block; object-fit:cover}
+
+/* Gallery grid */
+.gallery-grid{padding: 20px 0 10px;}
+.gallery-grid .grid{
+  display:grid; gap:14px;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0 20px 34px;
+  max-width:1100px;
+  margin:0 auto;
+}
+.gallery-grid .card{
+  border-radius: 18px; overflow:hidden;
+  box-shadow: 0 14px 30px rgba(0,0,0,.10);
+  background:#fff;
+}
+.gallery-grid .card img{width:100%; height:100%; display:block; object-fit:cover}
+@media (max-width: 900px){ .gallery-grid .grid{grid-template-columns: repeat(2, 1fr);} }
+@media (max-width: 520px){ .gallery-grid .grid{grid-template-columns: 1fr;} }
+
+/* More premium headings */
+section h2{font-size: clamp(1.6rem, 2.4vw, 2.2rem); letter-spacing:-0.01em}

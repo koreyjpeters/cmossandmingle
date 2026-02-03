@@ -1,0 +1,47 @@
+
+{%- assign featured = section.settings.featured_product -%}
+{%- if featured != blank -%}
+  {%- assign p = all_products[featured] -%}
+{%- else -%}
+  {%- assign p = collections.all.products.first -%}
+{%- endif -%}
+
+{%- assign bg = section.settings.hero_image -%}
+<section class="hero section bubbles" style="background-image:url({{ 'hero-serene.png' | asset_url }});">
+  {%- if bg != blank -%}
+    <style>
+      .hero{{ background-image:url({{ bg | image_url: width: 2400 }}); }}
+    </style>
+  {%- endif -%}
+  <div class="wrap hero-inner">
+    <span class="badge">🌴 St. Lucia Sourced · Wildcrafted · Sun‑Cured</span>
+    <h1>Pure Sea Moss. Elevated.</h1>
+    <p>Wildcrafted sea moss powder from the pristine waters of St. Lucia — thoughtfully prepared for modern daily rituals.</p>
+    <div class="actions">
+      {%- if p and p.url -%}
+        <a class="btn primary" href="{{ p.url }}">Shop Now</a>
+      {%- else -%}
+        <a class="btn primary" href="/collections/all">Shop Now</a>
+      {%- endif -%}
+      <a class="btn" href="#learn" style="background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.22);">Learn More</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero background image"
+    },
+    {
+      "type": "product",
+      "id": "featured_product",
+      "label": "Featured product (optional)"
+    }
+  ]
+}
+{% endschema %}

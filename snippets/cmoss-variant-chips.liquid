@@ -1,0 +1,78 @@
+{%- comment -%}
+  Render color chips for the "Moss Type" option.
+  Usage: {% render 'cmoss-variant-chips', product: product_obj %}
+{%- endcomment -%}
+
+{%- liquid
+  assign moss_option_index = -1
+  for option in product.options_with_values
+    if option.name == 'Moss Type'
+      assign moss_option_index = forloop.index0
+      break
+    endif
+  endfor
+-%}
+
+{%- if moss_option_index != -1 -%}
+  <div class="cmoss-variant-chips-wrapper" style="margin-bottom: 2rem;">
+    <label class="cmoss-variant-chips__label" style="display: block; margin-bottom: 1rem; font-weight: 600;">Moss Type</label>
+    <div class="cmoss-variant-chips" style="display: flex; gap: 1rem;">
+      {%- for value in product.options_with_values[moss_option_index].values -%}
+        {%- liquid
+          assign color_class = 'cmoss-chip--gold'
+          assign val_down = value | downcase
+          if val_down contains 'green'
+            assign color_class = 'cmoss-chip--green'
+          elsif val_down contains 'purple'
+            assign color_class = 'cmoss-chip--purple'
+          elsif val_down contains 'gold'
+            assign color_class = 'cmoss-chip--gold'
+          endif
+          
+          assign is_selected = false
+          if product.selected_or_first_available_variant.options[moss_option_index] == value
+            assign is_selected = true
+          endif
+        -%}
+        
+        <div class="cmoss-chip {{ color_class }} {% if is_selected %}active{% endif %}" 
+             data-value="{{ value | escape }}"
+             title="{{ value | escape }}">
+          <div class="cmoss-chip-inner"></div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const wrapper = document.querySelector('.cmoss-variant-chips-wrapper');
+      if (!wrapper) return;
+
+      const chips = wrapper.querySelectorAll('.cmoss-chip');
+      const mainSelect = wrapper.closest('form').querySelector('select[name="id"]');
+      const productJson = {{ product | json }};
+
+      chips.forEach(chip => {
+        chip.addEventListener('click', function() {
+          const value = this.getAttribute('data-value');
+          
+          // Update active state
+          chips.forEach(c => c.classList.remove('active'));
+          this.classList.add('active');
+
+          // Find variant matching this option
+          if (mainSelect) {
+            // Since the main select used in main-product.liquid contains the ID, 
+            // we need to find the variant ID that matches the selected option.
+            const variant = productJson.variants.find(v => v.options[{{ moss_option_index }}] === value);
+            if (variant) {
+              mainSelect.value = variant.id;
+              mainSelect.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+          }
+        });
+      });
+    })();
+  </script>
+{%- endif -%}

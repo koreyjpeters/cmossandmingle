@@ -1,0 +1,218 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .cmoss-moss-type__header {
+    margin-bottom: 4rem;
+    text-align: left;
+  }
+
+  .cmoss-moss-type__title {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .cmoss-moss-type__subtitle {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    max-width: 600px;
+  }
+
+  .cmoss-moss-type__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .cmoss-moss-type__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .cmoss-type-card {
+    background: white;
+    padding: 3rem;
+    border-radius: var(--cmoss-radius);
+    box-shadow: var(--cmoss-shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: transform 0.3s ease;
+  }
+
+  .cmoss-type-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .cmoss-type-card__dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-bottom: 2rem;
+  }
+
+  .cmoss-type-card--green .cmoss-type-card__dot { background-color: var(--cmoss-green); }
+  .cmoss-type-card--gold .cmoss-type-card__dot { background-color: var(--cmoss-gold); }
+  .cmoss-type-card--purple .cmoss-type-card__dot { background-color: var(--cmoss-purple); }
+
+  .cmoss-type-card__title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .cmoss-type-card__text {
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.7;
+    flex-grow: 1;
+  }
+
+  .cmoss-type-card__link {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--cmoss-brown);
+    border-bottom: 1px solid var(--cmoss-brown);
+    padding-bottom: 2px;
+  }
+{%- endstyle -%}
+
+<section class="cmoss-moss-type section-{{ section.id }}-padding">
+  <div class="page-width">
+    <div class="cmoss-moss-type__header">
+      <h2 class="cmoss-moss-type__title">{{ section.settings.heading }}</h2>
+      <div class="cmoss-moss-type__subtitle">{{ section.settings.subheading }}</div>
+    </div>
+
+    <div class="cmoss-moss-type__grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign variant_id = ""
+          if section.settings.product != blank
+            for variant in section.settings.product.variants
+              assign variant_title_down = variant.title | downcase
+              assign block_title_down = block.settings.title | downcase
+              if variant_title_down contains block_title_down
+                assign variant_id = variant.id
+                break
+              endif
+            endfor
+          endif
+        -%}
+        <div class="cmoss-type-card cmoss-type-card--{{ block.settings.color_type }}" {{ block.shopify_attributes }}>
+          <div class="cmoss-type-card__dot"></div>
+          <h3 class="cmoss-type-card__title">{{ block.settings.title }}</h3>
+          <div class="cmoss-type-card__text">{{ block.settings.text }}</div>
+          {% if section.settings.product != blank %}
+            <a href="{{ section.settings.product.url }}?variant={{ variant_id }}" class="cmoss-type-card__link">
+              {{ block.settings.link_label }}
+            </a>
+          {% endif %}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CMoss Type Cards",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Choose Your Moss Type"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>Same premium Grade A sea moss from St. Lucia. Just in unique, natural colors.</p>"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Moss Product"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "moss_type",
+      "name": "Moss Type",
+      "settings": [
+        {
+          "type": "select",
+          "id": "color_type",
+          "label": "Color Theme",
+          "options": [
+            { "value": "green", "label": "Green" },
+            { "value": "gold", "label": "Gold" },
+            { "value": "purple", "label": "Purple" }
+          ],
+          "default": "green"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Green Moss"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Rare chlorophyll-rich sea moss with a mild, earthy taste."
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link Label",
+          "default": "Shop Green Moss"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CMoss Type Cards",
+      "blocks": [
+        { "type": "moss_type", "settings": { "color_type": "green", "title": "Green Moss" } },
+        { "type": "moss_type", "settings": { "color_type": "gold", "title": "Gold Moss" } },
+        { "type": "moss_type", "settings": { "color_type": "purple", "title": "Purple Moss" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

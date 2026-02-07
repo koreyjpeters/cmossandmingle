@@ -1,31 +1,29 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main": {
-      "type": "main-product-premium",
+      "type": "main-product",
+      "blocks": {
+        "subscription_app": {
+          "type": "@app"
+        }
+      },
+      "block_order": [
+        "subscription_app"
+      ],
       "settings": {
-        "product": "cmoss-and-mingle-pure-sea-moss-powder",
         "product_handle": "cmoss-and-mingle-pure-sea-moss-powder",
-        "short_copy": "Pure, wildcrafted Chondrus crispus sea moss powder — sun‑cured, non‑bleached, and cleanly prepared. Sourced from the pristine waters of St. Lucia.",
-        "show_badge": true,
-        "badge_text": "🌴 Premium Quality",
-        "product_video": "",
-        "lifestyle_image_1": "shopify://shop_images/Lifestyle_Cmossandmingle.png",
-        "lifestyle_image_2": "shopify://shop_images/Gemini_Generated_Image_1tyh391tyh391tyh.png",
-        "show_trust_badges": true,
-        "show_benefits": true
+        "short_copy": "Pure, wildcrafted Chondrus crispus sea moss powder — sun‑cured, non‑bleached, and cleanly prepared."
+      }
+    },
+    "how_to_use": {
+      "type": "cmoss-how-to-use",
+      "settings": {
+        "heading": "How To Use"
       }
     }
   },
   "order": [
-    "main"
+    "main",
+    "how_to_use"
   ]
 }

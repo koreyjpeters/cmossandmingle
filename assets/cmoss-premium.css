@@ -1,0 +1,245 @@
+:root {
+    --cmoss-green: #2F6B3C;
+    --cmoss-gold: #C8A24A;
+    --cmoss-purple: #5B2A86;
+    --cmoss-cream: #F6F1E8;
+    --cmoss-brown: #3A241C;
+    --cmoss-text: var(--cmoss-brown);
+    --cmoss-bg-linen: #F6F1E8;
+    --cmoss-shadow: 0 4px 12px rgba(58, 36, 28, 0.08);
+    --cmoss-radius: 8px;
+
+    /* Typography */
+    --cmoss-font-heading: "Cormorant Garamond", serif;
+    --cmoss-font-body: "Inter", sans-serif;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap');
+
+body {
+    background-color: var(--cmoss-bg-linen);
+    color: var(--cmoss-text);
+    font-family: var(--cmoss-font-body);
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+.h1,
+.h2,
+.h3,
+.h4 {
+    font-family: var(--cmoss-font-heading);
+    font-weight: 500;
+    color: var(--cmoss-brown);
+    letter-spacing: -0.01em;
+}
+
+.button,
+.shopify-payment-button__button {
+    border-radius: var(--cmoss-radius) !important;
+    text-transform: none !important;
+    font-weight: 500 !important;
+    letter-spacing: 0 !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button--primary {
+    background-color: var(--cmoss-brown) !important;
+    color: #fff !important;
+}
+
+.button--secondary {
+    background-color: transparent !important;
+    color: var(--cmoss-brown) !important;
+    border: 1px solid var(--cmoss-brown) !important;
+}
+
+.button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Sections Spacing */
+.cmoss-section-padding {
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+@media screen and (max-width: 749px) {
+    .cmoss-section-padding {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+}
+
+/* Custom Component Styles */
+.cmoss-card {
+    background: white;
+    border-radius: var(--cmoss-radius);
+    padding: 24px;
+    box-shadow: var(--cmoss-shadow);
+    transition: transform 0.3s ease;
+}
+
+.cmoss-card:hover {
+    transform: translateY(-4px);
+}
+
+.cmoss-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    padding: 2px;
+    transition: all 0.2s ease;
+    width: 32px;
+    height: 32px;
+}
+
+.cmoss-chip.active {
+    border-color: var(--cmoss-brown);
+}
+
+.cmoss-chip-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.cmoss-chip--green .cmoss-chip-inner {
+    background-color: var(--cmoss-green);
+}
+
+.cmoss-chip--gold .cmoss-chip-inner {
+    background-color: var(--cmoss-gold);
+}
+
+.cmoss-chip--purple .cmoss-chip-inner {
+    background-color: var(--cmoss-purple);
+}
+
+/* Grid Spacing */
+.cmoss-grid {
+    display: grid;
+    gap: 30px;
+}
+
+.cmoss-grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+@media screen and (max-width: 989px) {
+    .cmoss-grid--3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 749px) {
+    .cmoss-grid--3 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Header Styling */
+.header {
+    padding: 20px 0;
+    background-color: transparent;
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media screen and (max-width: 749px) {
+    .header-inner {
+        padding: 0 1.5rem;
+    }
+}
+
+.brand {
+    font-family: var(--cmoss-font-heading);
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--cmoss-brown);
+}
+
+.nav {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+@media screen and (max-width: 989px) {
+    .nav {
+        display: none;
+    }
+}
+
+.nav a {
+    text-decoration: none;
+    color: var(--cmoss-brown);
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.nav a:hover {
+    opacity: 1;
+}
+
+.nav-icons {
+    display: flex;
+    gap: 1.5rem;
+    margin-left: 1rem;
+}
+
+.nav-icons a {
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+/* Footer Polish */
+footer {
+    padding: 60px 0;
+    border-top: 1px solid rgba(58, 36, 28, 0.1);
+    text-align: center;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* Page Width */
+.page-width {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5rem;
+}
+
+@media screen and (max-width: 749px) {
+    .page-width {
+        padding: 0 1.5rem;
+    }
+}
+
+/* Utils */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}

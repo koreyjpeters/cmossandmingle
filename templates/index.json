@@ -1,57 +1,126 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "hero": {
-      "type": "hero-premium",
+      "type": "cmoss-hero",
       "settings": {
-        "heading_part1": "Scoop the Moss.",
-        "heading_part2": "Catch the Vibe.",
-        "subheading": "Ethically harvested in St. Lucia. Sun-cured. Finely milled.\nPure sea moss with island energy.",
-        "show_badges": true,
-        "primary_button_text": "Shop the Vibe",
-        "primary_button_link": "/collections/all",
-        "secondary_button_text": "What's in the Moss?",
-        "secondary_button_link": "/pages/benefits",
-        "hero_background": "shopify://shop_images/ChatGPT_Image_Feb_3_2026_05_11_10_PM.png"
+        "badge": "NEW! Premium Sea Moss Powder",
+        "heading": "<p>Pure Sea Moss.<br>Premium & Fresh.</p>",
+        "subheading": "<p>Authentic St. Lucian wild-crafted sea moss.<br>Simple, clean, premium.</p>",
+        "primary_cta_label": "Shop Sea Moss Powder",
+        "primary_cta_link": "shopify:\/\/products\/cmoss-and-mingle-pure-sea-moss-powder",
+        "secondary_cta_label": "Learn More",
+        "secondary_cta_link": "shopify:\/\/pages\/about"
       }
     },
-    "benefits": {
+    "trust": {
+      "type": "cmoss-trust-list",
+      "settings": {
+        "padding_top": 20,
+        "padding_bottom": 40
+      }
+    },
+    "moss_types": {
+      "type": "cmoss-moss-type",
+      "blocks": {
+        "green": {
+          "type": "moss_type",
+          "settings": {
+            "color_type": "green",
+            "title": "Green Moss",
+            "text": "Rare chlorophyll-rich sea moss with a mild, earthy taste.",
+            "link_label": "Shop Green Moss"
+          }
+        },
+        "gold": {
+          "type": "moss_type",
+          "settings": {
+            "color_type": "gold",
+            "title": "Gold Moss",
+            "text": "The classic, vitamin-dense sea moss for daily wellness.",
+            "link_label": "Shop Gold Moss"
+          }
+        },
+        "purple": {
+          "type": "moss_type",
+          "settings": {
+            "color_type": "purple",
+            "title": "Purple Moss",
+            "text": "Antioxidant-rich variety harvested from deeper waters.",
+            "link_label": "Shop Purple Moss"
+          }
+        }
+      },
+      "block_order": [
+        "green",
+        "gold",
+        "purple"
+      ],
+      "settings": {
+        "product": "cmoss-and-mingle-pure-sea-moss-powder"
+      }
+    },
+    "how_to_use": {
+      "type": "cmoss-how-to-use",
+      "settings": {
+        "heading": "How You Use Sea Moss"
+      },
+      "blocks": {
+        "step1": {
+          "type": "step",
+          "settings": {
+            "text": "Add 1 tsp"
+          }
+        },
+        "step2": {
+          "type": "step",
+          "settings": {
+            "text": "Mix into smoothie, tea, or oats"
+          }
+        },
+        "step3": {
+          "type": "step",
+          "settings": {
+            "text": "Enjoy daily"
+          }
+        }
+      },
+      "block_order": [
+        "step1",
+        "step2",
+        "step3"
+      ]
+    },
+    "how_to_use_extra": {
       "type": "benefits",
       "settings": {
-        "heading": "Discover the Benefits",
-        "benefit1_title": "Daily Mineral Boost",
-        "benefit1_text": "92+ essential minerals",
-        "benefit2_title": "Easy to Mix",
-        "benefit2_text": "Blends smoothly",
-        "benefit3_title": "Clean & Pure",
-        "benefit3_text": "No additives"
+        "heading": "Sea Moss Benefits",
+        "benefit_1": "Rich in 92 minerals",
+        "benefit_2": "Supports immune health",
+        "benefit_3": "Promotes clear skin"
       }
     },
-    "featured_product": {
-      "type": "main-product-premium",
+    "subscribe": {
+      "type": "cmoss-subscribe-banner",
       "settings": {
-        "product": "cmoss-and-mingle-pure-sea-moss-powder",
-        "product_handle": "cmoss-and-mingle-pure-sea-moss-powder",
-        "short_copy": "Pure, wildcrafted Chondrus crispus sea moss powder — sun‑cured, non‑bleached, and cleanly prepared. Sourced from the pristine waters of St. Lucia.",
-        "show_badge": true,
-        "badge_text": "🌴 Premium Quality",
-        "product_video": "",
-        "show_trust_badges": true,
-        "show_benefits": true
+        "tagline": "Join the Routine",
+        "title": "Subscribe & Save 15%",
+        "subtitle": "Stay in your groove. Skip or cancel anytime.",
+        "cta_label": "Join the Routine",
+        "cta_link": "shopify:\/\/products\/cmoss-and-mingle-pure-sea-moss-powder"
       }
+    },
+    "icon_trust": {
+      "type": "cmoss-icon-trust",
+      "settings": {}
     }
   },
   "order": [
     "hero",
-    "benefits",
-    "featured_product"
+    "trust",
+    "moss_types",
+    "how_to_use",
+    "how_to_use_extra",
+    "subscribe",
+    "icon_trust"
   ]
 }

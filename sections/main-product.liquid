@@ -40,19 +40,32 @@
 
           {% form 'product', product_obj %}
             {% if product_obj.variants.size > 1 %}
-              <label style="display:block;margin-bottom:8px;">Size</label>
-              <select name="id" style="width:100%;padding:12px;border-radius:12px;border:1px solid #e6e6ea;margin-bottom:14px;">
-                {% for variant in product_obj.variants %}
-                  <option value="{{ variant.id }}" {% if variant == product_obj.selected_or_first_available_variant %}selected{% endif %}>
-                    {{ variant.title }} — {{ variant.price | money }}
-                  </option>
-                {% endfor %}
-              </select>
+              {% render 'cmoss-variant-chips', product: product_obj %}
+              
+              <div style="display: none;">
+                <label style="display:block;margin-bottom:8px;">Size / Variant</label>
+                <select name="id" style="width:100%;padding:12px;border-radius:12px;border:1px solid #e6e6ea;margin-bottom:14px;">
+                  {% for variant in product_obj.variants %}
+                    <option value="{{ variant.id }}" {% if variant == product_obj.selected_or_first_available_variant %}selected{% endif %}>
+                      {{ variant.title }} — {{ variant.price | money }}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
             {% else %}
               <input type="hidden" name="id" value="{{ product_obj.variants.first.id }}">
             {% endif %}
 
-            <button type="submit" class="btn primary" style="width:100%;">Add to cart</button>
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+                {%- when '@app' -%}
+                  <div style="margin-bottom: 2rem;">
+                    {% render block %}
+                  </div>
+              {%- endcase -%}
+            {%- endfor -%}
+
+            <button type="submit" class="btn primary" style="width:100%; padding: 16px; font-size: 1.1rem; cursor: pointer;">Add to cart</button>
           {% endform %}
 
           <div style="margin-top:16px;opacity:.85;">
@@ -88,6 +101,11 @@
     { "type": "text", "id": "short_copy", "label": "Short description", "default": "Pure, wildcrafted Chondrus crispus sea moss powder — sun‑cured, non‑bleached, and cleanly prepared." },
     { "type": "text", "id": "secondary_label", "label": "Secondary link label", "default": "View full details" },
     { "type": "url", "id": "secondary_link", "label": "Secondary link" }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
   ],
   "presets": [
     { "name": "Featured Product" }

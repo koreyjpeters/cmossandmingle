@@ -1,0 +1,232 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .cmoss-hero {
+    position: relative;
+    background-color: var(--cmoss-cream);
+    overflow: hidden;
+  }
+
+  {% if section.settings.bg_texture != blank %}
+  .cmoss-hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url('{{ section.settings.bg_texture | image_url: width: 2000 }}');
+    background-size: cover;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  {% endif %}
+
+  .cmoss-hero__container {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 0 5rem;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  @media screen and (max-width: 989px) {
+    .cmoss-hero__container {
+      flex-direction: column;
+      padding: 0 1.5rem;
+      text-align: center;
+    }
+  }
+
+  .cmoss-hero__content {
+    flex: 1;
+    padding-right: 4rem;
+  }
+
+  @media screen and (max-width: 989px) {
+    .cmoss-hero__content {
+      padding-right: 0;
+      margin-bottom: 3rem;
+    }
+  }
+
+  .cmoss-hero__badge {
+    display: inline-block;
+    background: #EEDCC4;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .cmoss-hero__title {
+    font-size: clamp(3rem, 6vw, 5rem);
+    margin: 0 0 1.5rem;
+    line-height: 1.1;
+  }
+
+  .cmoss-hero__subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 2.5rem;
+    max-width: 480px;
+    opacity: 0.8;
+  }
+
+  @media screen and (max-width: 989px) {
+    .cmoss-hero__subtitle {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .cmoss-hero__actions {
+    display: flex;
+    gap: 1rem;
+  }
+
+  @media screen and (max-width: 989px) {
+    .cmoss-hero__actions {
+      justify-content: center;
+    }
+  }
+
+  .cmoss-hero__image-wrapper {
+    flex: 1;
+    position: relative;
+  }
+
+  .cmoss-hero__image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transform: scale(1.1);
+  }
+{%- endstyle -%}
+
+<section class="cmoss-hero section-{{ section.id }}-padding">
+  <div class="cmoss-hero__container">
+    <div class="cmoss-hero__content">
+      {% if section.settings.badge != blank %}
+        <span class="cmoss-hero__badge">{{ section.settings.badge }}</span>
+      {% endif %}
+      
+      <h1 class="cmoss-hero__title">{{ section.settings.heading }}</h1>
+      
+      <div class="cmoss-hero__subtitle">
+        {{ section.settings.subheading }}
+      </div>
+      
+      <div class="cmoss-hero__actions">
+        {% if section.settings.primary_cta_label != blank %}
+          <a href="{{ section.settings.primary_cta_link }}" class="button button--primary">{{ section.settings.primary_cta_label }}</a>
+        {% endif %}
+        {% if section.settings.secondary_cta_label != blank %}
+          <a href="{{ section.settings.secondary_cta_link }}" class="button button--secondary">{{ section.settings.secondary_cta_label }}</a>
+        {% endif %}
+      </div>
+    </div>
+    
+    <div class="cmoss-hero__image-wrapper">
+      {% if section.settings.hero_image != blank %}
+        {{ section.settings.hero_image | image_url: width: 1200 | image_tag: class: 'cmoss-hero__image', loading: 'eager' }}
+      {% else %}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CMoss Hero Split",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge Text",
+      "default": "NEW! Premium Sea Moss Powder"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Pure Sea Moss. Premium & Fresh.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>Authentic St. Lucian wild-crafted sea moss. Simple, clean, premium.</p>"
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_label",
+      "label": "Primary button label",
+      "default": "Shop Sea Moss Powder"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_label",
+      "label": "Secondary button label",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_texture",
+      "label": "Background Texture (Linen)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "CMoss Hero Split"
+    }
+  ]
+}
+{% endschema %}

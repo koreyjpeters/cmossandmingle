@@ -1,0 +1,173 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .cmoss-subscribe {
+    position: relative;
+    background-color: var(--cmoss-cream);
+    overflow: hidden;
+    border-radius: var(--cmoss-radius);
+    margin: 0 5rem;
+  }
+
+  @media screen and (max-width: 989px) {
+    .cmoss-subscribe {
+      margin: 0 1.5rem;
+    }
+  }
+
+  .cmoss-subscribe__container {
+    padding: 6rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  @media screen and (max-width: 989px) {
+    .cmoss-subscribe__container {
+      flex-direction: column;
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+  }
+
+  .cmoss-subscribe__content {
+    max-width: 500px;
+  }
+
+  .cmoss-subscribe__tagline {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .cmoss-subscribe__title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .cmoss-subscribe__subtitle {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .cmoss-subscribe__image-wrap {
+    flex-shrink: 0;
+    width: 400px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .cmoss-subscribe__image-wrap {
+      width: 100%;
+      max-width: 300px;
+      margin-top: 3rem;
+    }
+  }
+
+  .cmoss-subscribe__image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+{%- endstyle -%}
+
+<section class="section-{{ section.id }}-padding">
+  <div class="cmoss-subscribe">
+    <div class="cmoss-subscribe__container">
+      <div class="cmoss-subscribe__content">
+        <h2 class="cmoss-subscribe__tagline">{{ section.settings.tagline }}</h2>
+        <div class="cmoss-subscribe__title">{{ section.settings.title }}</div>
+        <p class="cmoss-subscribe__subtitle">{{ section.settings.subtitle }}</p>
+        
+        <a href="{{ section.settings.cta_link }}" class="button button--primary">{{ section.settings.cta_label }}</a>
+      </div>
+
+      <div class="cmoss-subscribe__image-wrap">
+        {% if section.settings.image != blank %}
+          {{ section.settings.image | image_url: width: 800 | image_tag: class: 'cmoss-subscribe__image' }}
+        {% else %}
+           {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CMoss Subscribe Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Join the Routine"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Subscribe & Save 15%"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Stay in your groove. Skip or cancel anytime."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button Label",
+      "default": "Join the Routine"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product/Malt Image"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "CMoss Subscribe Banner"
+    }
+  ]
+}
+{% endschema %}

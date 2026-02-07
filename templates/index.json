@@ -1,73 +1,39 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "cmoss-hero",
       "settings": {
         "badge": "NEW! Premium Sea Moss Powder",
-        "heading": "<p>Pure Sea Moss.<br>Premium & Fresh.</p>",
-        "subheading": "<p>Authentic St. Lucian wild-crafted sea moss.<br>Simple, clean, premium.</p>",
+        "heading": "<p>Pure Sea Moss.<br/>Premium & Fresh.</p>",
+        "subheading": "<p>Authentic St. Lucian wild-crafted sea moss.<br/>Simple, clean, premium.</p>",
         "primary_cta_label": "Shop Sea Moss Powder",
-        "primary_cta_link": "shopify:\/\/products\/cmoss-and-mingle-pure-sea-moss-powder",
+        "primary_cta_link": "shopify://products/cmoss-and-mingle-pure-sea-moss-powder",
         "secondary_cta_label": "Learn More",
-        "secondary_cta_link": "shopify:\/\/pages\/about"
+        "secondary_cta_link": "shopify://pages/about",
+        "hero_image": "shopify://shop_images/ChatGPT_Image_Feb_7_2026_11_59_17_AM.png",
+        "bg_texture": "shopify://shop_images/ChatGPT_Image_Feb_7_2026_01_56_37_PM.png",
+        "padding_top": 100,
+        "padding_bottom": 100
       }
     },
-    "benefits": {
-      "type": "benefits",
+    "trust": {
+      "type": "cmoss-trust-list",
       "settings": {
-        "heading": "Choose Your Moss Type",
-        "text": "<p>Same premium Grade A sea moss from St. Lucia. Just in unique, natural colors.<\/p>",
-        "padding_top": 80,
-        "padding_bottom": 80
-      },
-      "blocks": {
-        "check1": {
-          "type": "check_item",
-          "settings": {
-            "text": "Authentic St. Lucian"
-          }
-        },
-        "check2": {
-          "type": "check_item",
-          "settings": {
-            "text": "Wild-crafted & solar-dried"
-          }
-        },
-        "check3": {
-          "type": "check_item",
-          "settings": {
-            "text": "Clean, simple, premium"
-          }
-        },
-        "img1": {
-          "type": "image",
-          "settings": {}
-        },
-        "img2": {
-          "type": "image",
-          "settings": {}
-        },
-        "img3": {
-          "type": "image",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "check1",
-        "check2",
-        "check3",
-        "img1",
-        "img2",
-        "img3"
-      ]
+        "padding_top": 20,
+        "padding_bottom": 40
+      }
     },
     "moss_types": {
       "type": "cmoss-moss-type",
-      "settings": {
-        "heading": "Our Moss Varieties",
-        "subheading": "<p>Select the color that fits your wellness goals.<\/p>",
-        "product": "cmoss-and-mingle-pure-sea-moss-powder"
-      },
       "blocks": {
         "green": {
           "type": "moss_type",
@@ -101,13 +67,17 @@
         "green",
         "gold",
         "purple"
-      ]
+      ],
+      "settings": {
+        "heading": "Choose Your Moss Type",
+        "subheading": "<p>Same premium Grade A sea moss from St. Lucia. Just in unique, natural colors.</p>",
+        "product": "cmoss-and-mingle-pure-sea-moss-powder",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     },
     "how_to_use": {
       "type": "cmoss-how-to-use",
-      "settings": {
-        "heading": "How You Use Sea Moss"
-      },
       "blocks": {
         "step1": {
           "type": "step",
@@ -132,7 +102,18 @@
         "step1",
         "step2",
         "step3"
-      ]
+      ],
+      "settings": {
+        "heading": "How You Use Sea Moss",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "how_to_use_extra": {
+      "type": "benefits",
+      "settings": {
+        "heading": "Sea Moss Benefits"
+      }
     },
     "subscribe": {
       "type": "cmoss-subscribe-banner",
@@ -141,15 +122,27 @@
         "title": "Subscribe & Save 15%",
         "subtitle": "Stay in your groove. Skip or cancel anytime.",
         "cta_label": "Join the Routine",
-        "cta_link": "shopify:\/\/products\/cmoss-and-mingle-pure-sea-moss-powder"
+        "cta_link": "shopify://products/cmoss-and-mingle-pure-sea-moss-powder",
+        "image": "shopify://shop_images/ChatGPT_Image_Feb_7_2026_01_52_42_PM.png",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "icon_trust": {
+      "type": "cmoss-icon-trust",
+      "settings": {
+        "padding_top": 40,
+        "padding_bottom": 40
       }
     }
   },
   "order": [
     "hero",
-    "benefits",
+    "trust",
     "moss_types",
     "how_to_use",
-    "subscribe"
+    "how_to_use_extra",
+    "subscribe",
+    "icon_trust"
   ]
 }

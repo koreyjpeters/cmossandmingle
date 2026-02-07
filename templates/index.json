@@ -82,18 +82,21 @@
         "step1": {
           "type": "step",
           "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_Feb_7_2026_12_05_01_PM.png",
             "text": "Add 1 tsp"
           }
         },
         "step2": {
           "type": "step",
           "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_Feb_7_2026_12_10_55_PM.png",
             "text": "Mix into smoothie, tea, or oats"
           }
         },
         "step3": {
           "type": "step",
           "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_Feb_7_2026_12_11_01_PM.png",
             "text": "Enjoy daily"
           }
         }

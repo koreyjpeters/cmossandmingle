@@ -147,12 +147,13 @@ h4,
 
 /* Header Styling */
 .header {
-    padding: 20px 0;
-    background-color: transparent;
+    padding: 30px 0;
+    background-color: var(--cmoss-bg-linen);
+    border-bottom: 1px solid rgba(58, 36, 28, 0.05);
 }
 
 .header-inner {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 5rem;
     display: flex;
@@ -168,15 +169,16 @@ h4,
 
 .brand {
     font-family: var(--cmoss-font-heading);
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.8rem;
+    font-weight: 500;
     text-decoration: none;
     color: var(--cmoss-brown);
+    letter-spacing: -0.02em;
 }
 
 .nav {
     display: flex;
-    gap: 2.5rem;
+    gap: 3rem;
     align-items: center;
 }
 
@@ -189,10 +191,12 @@ h4,
 .nav a {
     text-decoration: none;
     color: var(--cmoss-brown);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 500;
-    opacity: 0.8;
-    transition: opacity 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
 }
 
 .nav a:hover {
@@ -202,26 +206,173 @@ h4,
 .nav-icons {
     display: flex;
     gap: 1.5rem;
-    margin-left: 1rem;
+    margin-left: 2rem;
+    align-items: center;
 }
 
 .nav-icons a {
     text-decoration: none;
-    font-size: 1.2rem;
+    color: var(--cmoss-brown);
+    display: flex;
+    align-items: center;
 }
 
-/* Footer Polish */
-footer {
-    padding: 60px 0;
-    border-top: 1px solid rgba(58, 36, 28, 0.1);
-    text-align: center;
-    font-size: 0.9rem;
+.nav-icons svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Footer Styling */
+.footer {
+    padding: 100px 0 60px;
+    background-color: var(--cmoss-cream);
+    border-top: 1px solid rgba(58, 36, 28, 0.05);
+}
+
+.footer-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5rem;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 4rem;
+}
+
+@media screen and (max-width: 989px) {
+    .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        padding: 0 1.5rem;
+    }
+}
+
+@media screen and (max-width: 749px) {
+    .footer-inner {
+        grid-template-columns: 1fr;
+    }
+}
+
+.footer__brand {
+    font-family: var(--cmoss-font-heading);
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    display: block;
+    color: var(--cmoss-brown);
+    text-decoration: none;
+}
+
+.footer__text {
+    font-size: 1rem;
     opacity: 0.7;
+    max-width: 300px;
+    line-height: 1.8;
 }
 
-/* Page Width */
+.footer__heading {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 2rem;
+    color: var(--cmoss-brown);
+}
+
+.footer__menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer__menu-item {
+    margin-bottom: 1rem;
+}
+
+.footer__menu-link {
+    text-decoration: none;
+    color: var(--cmoss-brown);
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.footer__menu-link:hover {
+    opacity: 1;
+}
+
+.footer__bottom {
+    max-width: 1400px;
+    margin: 60px auto 0;
+    padding: 40px 5rem 0;
+    border-top: 1px solid rgba(58, 36, 28, 0.05);
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    opacity: 0.5;
+}
+
+/* Benefits Section Styling */
+.benefits {
+    background-color: white;
+    padding: 120px 0;
+}
+
+.benefits__header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 6rem;
+}
+
+.benefits__title {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.benefits__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+}
+
+@media screen and (max-width: 989px) {
+    .benefits__grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+}
+
+.benefit-card {
+    text-align: center;
+}
+
+.benefit-card__icon-wrap {
+    width: 80px;
+    height: 80px;
+    background-color: var(--cmoss-cream);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2.5rem;
+    color: var(--cmoss-brown);
+}
+
+.benefit-card__icon-wrap svg {
+    width: 32px;
+    height: 32px;
+}
+
+.benefit-card__title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.benefit-card__text {
+    font-size: 1rem;
+    opacity: 0.7;
+    line-height: 1.7;
+}
+
+/* Utils */
 .page-width {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 5rem;
 }
@@ -232,7 +383,6 @@ footer {
     }
 }
 
-/* Utils */
 .sr-only {
     position: absolute;
     width: 1px;

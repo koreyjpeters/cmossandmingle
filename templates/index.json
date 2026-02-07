@@ -90,14 +90,43 @@
         "step3"
       ]
     },
-    "how_to_use_extra": {
+    "benefits_section": {
       "type": "benefits",
       "settings": {
-        "heading": "Sea Moss Benefits",
-        "benefit_1": "Rich in 92 minerals",
-        "benefit_2": "Supports immune health",
-        "benefit_3": "Promotes clear skin"
-      }
+        "heading": "The Pure Power of Sea Moss",
+        "subheading": "Discover why this ancient superfood is the cornerstone of modern wellness rituals."
+      },
+      "blocks": {
+        "minerals": {
+          "type": "benefit",
+          "settings": {
+            "icon": "leaf",
+            "title": "92 Essential Minerals",
+            "text": "Our sea moss contains almost all the minerals your body needs to thrive daily."
+          }
+        },
+        "immunity": {
+          "type": "benefit",
+          "settings": {
+            "icon": "shield",
+            "title": "Immune Support",
+            "text": "Natural anti-viral and anti-microbial properties to keep you protected."
+          }
+        },
+        "skin": {
+          "type": "benefit",
+          "settings": {
+            "icon": "water",
+            "title": "Glowing Skin",
+            "text": "Promotes collagen production and skin hydration from the inside out."
+          }
+        }
+      },
+      "block_order": [
+        "minerals",
+        "immunity",
+        "skin"
+      ]
     },
     "subscribe": {
       "type": "cmoss-subscribe-banner",
@@ -119,7 +148,7 @@
     "trust",
     "moss_types",
     "how_to_use",
-    "how_to_use_extra",
+    "benefits_section",
     "subscribe",
     "icon_trust"
   ]

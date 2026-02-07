@@ -1,6 +1,61 @@
 <footer class="footer">
-  <div class="wrap">
-    <strong>Island vibes. Everyday wellness.</strong>
-    <div class="small">© {{ 'now' | date: '%Y' }} C'Moss & Mingle. All rights reserved.</div>
+  <div class="footer-inner">
+    <div class="footer__col">
+      <a href="/" class="footer__brand">C'Moss & Mingle</a>
+      <p class="footer__text">
+        Premium, wild-crafted sea moss from the pristine waters of St. Lucia. 
+        Clean, simple, and packed with 92+ essential minerals for your daily ritual.
+      </p>
+    </div>
+
+    <div class="footer__col">
+      <h3 class="footer__heading">Shop</h3>
+      <ul class="footer__menu">
+        <li class="footer__menu-item"><a href="/collections/all" class="footer__menu-link">All Products</a></li>
+        <li class="footer__menu-item"><a href="/products/cmoss-and-mingle-pure-sea-moss-powder?variant=green" class="footer__menu-link">Green Moss</a></li>
+        <li class="footer__menu-item"><a href="/products/cmoss-and-mingle-pure-sea-moss-powder?variant=gold" class="footer__menu-link">Gold Moss</a></li>
+        <li class="footer__menu-item"><a href="/products/cmoss-and-mingle-pure-sea-moss-powder?variant=purple" class="footer__menu-link">Purple Moss</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h3 class="footer__heading">Support</h3>
+      <ul class="footer__menu">
+        <li class="footer__menu-item"><a href="/pages/about" class="footer__menu-link">Our Story</a></li>
+        <li class="footer__menu-item"><a href="/pages/faq" class="footer__menu-link">FAQ</a></li>
+        <li class="footer__menu-item"><a href="/pages/contact" class="footer__menu-link">Contact Us</a></li>
+        <li class="footer__menu-item"><a href="/pages/shipping-policy" class="footer__menu-link">Shipping & Returns</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h3 class="footer__heading">Join the Routine</h3>
+      <p class="footer__text" style="font-size: 0.9rem; margin-bottom: 1.5rem;">
+        Subscribe to get wellness tips and exclusive offers.
+      </p>
+      {% form 'customer' %}
+        <div style="display: flex; gap: 10px;">
+          <input type="email" name="contact[email]" placeholder="Your email" style="background: white; border: 1px solid rgba(58, 36, 28, 0.1); padding: 10px 15px; border-radius: 6px; flex-grow: 1;">
+          <button type="submit" class="button button--primary" style="padding: 10px 20px;">Join</button>
+        </div>
+      {% endform %}
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="footer__copyright">
+      &copy; {{ 'now' | date: "%Y" }} C'Moss & Mingle. All rights reserved.
+    </div>
+    <div class="footer__legal">
+      <a href="/pages/privacy-policy" style="color: inherit; text-decoration: none; margin-left: 20px;">Privacy Policy</a>
+      <a href="/pages/terms-of-service" style="color: inherit; text-decoration: none; margin-left: 20px;">Terms of Service</a>
+    </div>
   </div>
 </footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": []
+}
+{% endschema %}

@@ -1,36 +1,116 @@
-<section class="benefits">
-  <div class="page-width">
-    {% if section.settings.heading != blank %}
-      <div class="benefits__header">
-        <h2 class="benefits__title h1">{{ section.settings.heading }}</h2>
-        {% if section.settings.subheading != blank %}
-          <div class="benefits__subtext">{{ section.settings.subheading }}</div>
-        {% endif %}
-      </div>
-    {% endif %}
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
 
-    <div class="benefits__grid">
+  .cmoss-benefits-split {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 6rem;
+    align-items: center;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 0 5rem;
+  }
+
+  @media screen and (max-width: 989px) {
+    .cmoss-benefits-split {
+      grid-template-columns: 1fr;
+      padding: 0 1.5rem;
+      gap: 4rem;
+    }
+  }
+
+  .benefits-split__content {
+    max-width: 400px;
+  }
+
+  .benefits-split__checklist {
+    list-style: none;
+    padding: 0;
+    margin: 3rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .benefits-split__item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  .benefits-split__check {
+    width: 20px;
+    height: 20px;
+    color: var(--cmoss-brown);
+    flex-shrink: 0;
+  }
+
+  .benefits-split__images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .benefits-split__img-wrap {
+    border-radius: var(--cmoss-radius);
+    overflow: hidden;
+    background: #f0f0f0;
+    aspect-ratio: 1/1;
+  }
+
+  .benefits-split__img-wrap:last-child {
+    grid-column: span 2;
+    aspect-ratio: 16/9;
+  }
+
+  .benefits-split__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+{%- endstyle -%}
+
+<section class="section-{{ section.id }}-padding">
+  <div class="cmoss-benefits-split">
+    <div class="benefits-split__content">
+      <h2 class="h1" style="margin-bottom: 1.5rem;">{{ section.settings.heading }}</h2>
+      <div class="rte">{{ section.settings.text }}</div>
+      
+      <ul class="benefits-split__checklist">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'check_item' -%}
+            <li class="benefits-split__item">
+              <span class="benefits-split__check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </span>
+              {{ block.settings.text }}
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <div class="benefits-split__images">
+      {%- assign img_count = 0 -%}
       {%- for block in section.blocks -%}
-        <div class="benefit-card" {{ block.shopify_attributes }}>
-          <div class="benefit-card__icon-wrap">
-            {%- case block.settings.icon -%}
-              {%- when 'shield' -%}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-              {%- when 'leaf' -%}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22L12 12M2 22C4.5 20.2 6.5 17.5 7.5 14.5C8.8 10.7 7.5 6.5 4.5 3.5C4.5 3.5 1 1 1 1M12 12C14.5 13.8 16.5 16.5 17.5 19.5C18.8 23.3 17.5 27.5 14.5 30.5C14.5 30.5 11 33 11 33"></path><path d="M12 12L22 2"></path></svg>
-              {%- when 'energy' -%}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline></svg>
-              {%- when 'water' -%}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
-              {%- when 'check' -%}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              {%- else -%}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-            {%- endcase -%}
+        {%- if block.type == 'image' -%}
+          <div class="benefits-split__img-wrap">
+            {% if block.settings.image != blank %}
+              {{ block.settings.image | image_url: width: 800 | image_tag: class: 'benefits-split__img' }}
+            {% else %}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
           </div>
-          <h3 class="benefit-card__title">{{ block.settings.title }}</h3>
-          <div class="benefit-card__text">{{ block.settings.text }}</div>
-        </div>
+          {%- assign img_count = img_count | plus: 1 -%}
+        {%- endif -%}
       {%- endfor -%}
     </div>
   </div>
@@ -38,7 +118,7 @@
 
 {% schema %}
 {
-  "name": "CMoss Premium Benefits",
+  "name": "CMoss Benefits Split",
   "settings": [
     {
       "type": "text",
@@ -47,52 +127,68 @@
       "default": "The Pure Power of Sea Moss"
     },
     {
-      "type": "textarea",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "Discover why this ancient superfood is the cornerstone of modern wellness rituals."
+      "type": "richtext",
+      "id": "text",
+      "label": "Description",
+      "default": "<p>Discover why this ancient superfood is the cornerstone of modern wellness rituals.</p>"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 100
     }
   ],
   "blocks": [
     {
-      "type": "benefit",
-      "name": "Benefit",
+      "type": "check_item",
+      "name": "Checklist Item",
       "settings": [
         {
-          "type": "select",
-          "id": "icon",
-          "label": "Icon",
-          "options": [
-            { "value": "shield", "label": "Shield (Immunity)" },
-            { "value": "leaf", "label": "Leaf (Pure/Natural)" },
-            { "value": "energy", "label": "Bolt (Energy)" },
-            { "value": "water", "label": "Drop (Hydration/Skin)" },
-            { "value": "check", "label": "Checkmark" }
-          ],
-          "default": "leaf"
-        },
-        {
           "type": "text",
-          "id": "title",
-          "label": "Title",
-          "default": "92 Essential Minerals"
-        },
-        {
-          "type": "textarea",
           "id": "text",
-          "label": "Description",
-          "default": "Our sea moss contains almost all the minerals your body needs to thrive daily."
+          "label": "Text",
+          "default": "Authentic St. Lucian"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "CMoss Premium Benefits",
+      "name": "CMoss Benefits Split",
       "blocks": [
-        { "type": "benefit", "settings": { "icon": "leaf", "title": "Wild-Crafted" } },
-        { "type": "benefit", "settings": { "icon": "shield", "title": "Immune Support" } },
-        { "type": "benefit", "settings": { "icon": "water", "title": "Healthy Skin" } }
+        { "type": "check_item", "settings": { "text": "Authentic St. Lucian" } },
+        { "type": "check_item", "settings": { "text": "Wild-crafted & solar-dried" } },
+        { "type": "check_item", "settings": { "text": "Clean, simple, premium" } },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" }
       ]
     }
   ]

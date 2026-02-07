@@ -1,45 +1,106 @@
-<header class="header">
-  <div class="header-inner">
-    <a href="/" class="brand">C'Moss & Mingle</a>
-    
-    <nav class="nav">
-      <a href="/">Home</a>
-      <a href="/collections/all">Shop</a>
-      
-      {% if section.settings.about_link != blank %}
-        <a href="{{ section.settings.about_link }}">Our Story</a>
-      {% else %}
-        <a href="/pages/about">Our Story</a>
-      {% endif %}
-      
-      {% if section.settings.faq_link != blank %}
-        <a href="{{ section.settings.faq_link }}">FAQ</a>
-      {% else %}
-        <a href="/pages/faq">FAQ</a>
-      {% endif %}
-      
-      {% if section.settings.contact_link != blank %}
-        <a href="{{ section.settings.contact_link }}">Contact</a>
-      {% else %}
-        <a href="/pages/contact">Contact</a>
-      {% endif %}
-    </nav>
+{%- style -%}
+  .header-wrapper {
+    background-color: transparent;
+    position: relative;
+    z-index: 10;
+  }
 
-    <div class="nav-icons">
-      <a href="/search" aria-label="Search" class="nav-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-      </a>
-      <a href="/account" aria-label="Account" class="nav-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle>
-        </svg>
-      </a>
-      <a href="/cart" aria-label="Cart" class="nav-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  .header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2.5rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  @media screen and (max-width: 989px) {
+    .header-container {
+      padding: 1.5rem 1.5rem;
+    }
+  }
+
+  /* Left Side: Badge */
+  .header__badge-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9rem;
+    color: var(--cmoss-brown);
+  }
+
+  .header__badge {
+    background: #EEDCC4;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Right Side: Nav + Cart */
+  .header__right {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .nav__links {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  @media screen and (max-width: 749px) {
+    .nav__links {
+      display: none;
+    }
+  }
+
+  .nav__link {
+    text-decoration: none;
+    color: var(--cmoss-brown);
+    font-size: 0.95rem;
+    font-weight: 400;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+  }
+
+  .nav__link:hover {
+    opacity: 0.6;
+  }
+
+  .header__cart {
+    display: flex;
+    align-items: center;
+    color: var(--cmoss-brown);
+    text-decoration: none;
+  }
+
+  .header__cart svg {
+    width: 20px;
+    height: 20px;
+  }
+{%- endstyle -%}
+
+<header class="header-wrapper">
+  <div class="header-container">
+    <div class="header__badge-wrap">
+      <span class="header__badge">NEW!</span>
+      <span class="header__badge-text">Premium Sea Moss Powder</span>
+    </div>
+
+    <div class="header__right">
+      <nav class="nav__links">
+        <a href="/collections/all" class="nav__link">Shop</a>
+        <a href="/pages/about" class="nav__link">Our Story</a>
+        <a href="/pages/faq" class="nav__link">FAQ</a>
+        <a href="/pages/contact" class="nav__link">Contact</a>
+      </nav>
+
+      <a href="/cart" class="header__cart" aria-label="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
           <line x1="3" y1="6" x2="21" y2="6"></line>
           <path d="M16 10a4 4 0 0 1-8 0"></path>
@@ -51,29 +112,19 @@
 
 {% schema %}
 {
-  "name": "Header",
+  "name": "CMoss Premium Header",
   "settings": [
     {
-      "type": "header",
-      "content": "Navigation Links"
+      "type": "text",
+      "id": "badge_label",
+      "label": "Badge Text",
+      "default": "NEW!"
     },
     {
-      "type": "url",
-      "id": "about_link",
-      "label": "About page link",
-      "info": "Leave blank to use /pages/about"
-    },
-    {
-      "type": "url",
-      "id": "faq_link",
-      "label": "FAQ page link",
-      "info": "Leave blank to use /pages/faq"
-    },
-    {
-      "type": "url",
-      "id": "contact_link",
-      "label": "Contact page link",
-      "info": "Leave blank to use /pages/contact"
+      "type": "text",
+      "id": "badge_info",
+      "label": "Info Text",
+      "default": "Premium Sea Moss Powder"
     }
   ]
 }
